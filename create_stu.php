@@ -1,3 +1,23 @@
+<?php
+include 'connect.php';
+
+if(isset($_POST['submit'])){
+	$adm = $_POST['adm'];
+	$fname = $_POST['fname'];
+	$sname = $_POST['sname'];
+	$gender = $_POST['gender'];
+	$class = $_POST['class'];
+	$house = $_POST['house'];
+	$club = $_POST['club'];
+
+	$sql="INSERT INTO tbl_students(Adm, Fname, Sname, Gender, Class, House, Club) VALUES('$adm', '$fname', '$sname', '$gender', '$class', '$house', '$club')";
+
+	$query = mysqli_query($conn, $sql);
+
+}
+
+?>
+
 <html>
 <head>
 <title>Add Student</title>
@@ -7,15 +27,15 @@
 <body>
 
 	<main>
-	<div class="container">	
+	<div class="container">
 
-	<div class="col-sm-5">	
+	<div class="col-sm-5">
 	 <div class="page-header">
         <br>
         <h2 class="text-center text-primary"><b>Add Student</b></h2>
-    </div>	
-						
-	<form class="form-horizontal">
+    </div>
+
+	<form class="form-horizontal" method="POST">
 
 		<div class="form-group">
 			<label class="control-label">Adm_no:</label>
