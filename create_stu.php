@@ -14,8 +14,50 @@ if(isset($_POST['submit'])){
 
 	$query = mysqli_query($conn, $sql);
 
-}
+	if($query){
+		header("location: index.php");
+	}else{
+		header("location: create_stu.php");
+	}
 
+}elseif(isset($_GET['edit'])){
+
+	$id = $_GET['edit'];
+
+	$sql="SELECT * FROM tbl_students WHERE ID=$id";
+	$query=mysqli_query($conn, $sql);
+
+	//if(count($sql))==1{
+		$row = mysqli_fetch_array($query);
+
+		$adm = $row['Adm'];
+		$fname = $row['Fname'];
+		$sname = $row['Sname'];
+		$gender = $row['Gender'];
+		$class = $row['Class'];
+		$house = $row['House'];
+		$club = $row['Club'];
+//}
+}elseif(isset($_POST['update'])){
+	$id = $_POST['id'];
+	$adm = $_POST['adm'];
+	$fname = $_POST['fname'];
+	$sname = $_POST['sname'];
+	$gender = $_POST['gender'];
+	$class = $_POST['class'];
+	$house = $_POST['house'];
+	$club = $_POST['club'];
+
+
+	$sql="UPDATE tbl_students SET Adm='$adm', Fname='$fname', Sname='$sname', Gender='$gender', Class='$class', House='$house', Club='$club' WHERE ID=$id";
+
+	$query=mysqli_query($conn, $sql);
+
+	if($query){
+		header("location: index.php");
+	}
+
+}
 ?>
 
 <html>
@@ -36,46 +78,54 @@ if(isset($_POST['submit'])){
     </div>
 
 	<form class="form-horizontal" method="POST">
+		<input type="hidden" name="id" value="<?php echo $id; ?>" />
 
 		<div class="form-group">
 			<label class="control-label">Adm_no:</label>
-			<input class="form-control" type="number" name="adm" required />
+			<input class="form-control" type="number" name="adm" value="<?php echo $adm;?>" required />
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">First Name:</label>
-			<input class="form-control" type="text" name="fname" required />
+			<input class="form-control" type="text" name="fname" value="<?php echo $fname;?>" required />
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">Second Name:</label>
-			<input class="form-control" type="text" name="sname" required />
+			<input class="form-control" type="text" name="sname" value="<?php echo $sname;?>" required />
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">Class:</label>
-			<input class="form-control" type="text" name="class" required />
+			<input class="form-control" type="text" name="class" value="<?php echo $class;?>" required />
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">Gender:</label>
-			<input class="form-control" type="text" name="gender" required />
+			<input class="form-control" type="text" name="gender" value="<?php echo $gender;?>" required />
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">House:</label>
-			<input class="form-control" type="text" name="house" required />
+			<input class="form-control" type="text" name="house" value="<?php echo $house;?>" required />
 		</div>
 
 		<div class="form-group">
 			<label class="control-label">Club:</label>
-			<input class="form-control" type="text" name="club" required />
+			<input class="form-control" type="text" name="club" value="<?php echo $club;?>" required />
 		</div>
 
 		<br>
 	  <div class="form-group">
+	  	<?php 
+	  	if(isset($_GET['edit'])){
+	  		?>
+	  		<button type="submit" class="btn btn-info" name="update">Update</button>
+	  	<?php }else{ ?>
+	  	
             <button type="submit" class="btn btn-success" name="submit">Submit</button>
             <button type="reset" class="btn btn-warning">Reset</button>
+        <?php } ?>
       </div>
 </div>
 

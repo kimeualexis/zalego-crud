@@ -15,23 +15,30 @@
         <h2 class="text-center text-primary"><b>Students</b></h2>
     </div>
 
-<?php
+    <?php
+    include 'connect.php';
 
-include 'connect.php';
-$sql="SELECT * FROM tbl_students";
+    $sql="SELECT * FROM tbl_students";
+    $query=mysqli_query($conn, $sql);
 
-$query=mysqli_query($conn, $sql);
+    ?>
 
-echo "<table class='table'>
-<thead>
-<th>ID</th><th>Adm</th> <th>First Name</th> <th>Last Name</th> <th>Gender</th> <th>Class</th> <th>House</th> <th>Club</th>
-</thead>";
-while($row=mysqli_fetch_assoc($query)){
-  echo "<tr><td>".$row['ID']. "</td><td>".$row['Adm']. "</td><td>".$row['Fname']. "</td><td>".$row['Sname']. "</td><td>"
-  .$row['Gender']. "</td><td>" .$row['Class']. "</td><td>" .$row['House']. "</td><td>" .$row['Club']. "</td></tr>";
-}
-"</table>"
- ?>
+    <table class="table">
+        <thead><th>ID</th><th>Adm</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>Class</th><th>House</th><th>Club</th><th>Action</th></thead>
+
+    <?php 
+
+    while($row=mysqli_fetch_assoc($query)){
+        ?>
+   
+        <tr><td><?php echo $row['ID'];?></td><td><?php echo $row['Adm'];?></td><td><?php echo $row['Fname'];?></td><td><?php echo $row['Sname'];?></td><td><?php echo $row['Gender'];?></td><td><?php echo $row['Class'];?></td><td><?php echo $row['House'];?></td><td><?php echo $row['Club'];?></td><td><a href="create_stu.php?edit=<?php echo $row['ID'];?>" class="btn btn-info">Update</a>&nbsp;<a href="delete.php?delete=<?php echo $row['ID'];?>" class="btn btn-danger">Delete</a></td></tr>
+   <?php }; ?>
+</table>
+
+
+
+
+	
 
 </div>
 </div>
