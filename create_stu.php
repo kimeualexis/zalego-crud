@@ -1,4 +1,6 @@
 <?php
+
+include 'navbar.php';
 include 'connect.php';
 
 if(isset($_POST['submit'])){
@@ -20,44 +22,8 @@ if(isset($_POST['submit'])){
 		header("location: create_stu.php");
 	}
 
-}elseif(isset($_GET['edit'])){
-
-	$id = $_GET['edit'];
-
-	$sql="SELECT * FROM tbl_students WHERE ID=$id";
-	$query=mysqli_query($conn, $sql);
-
-	//if(count($sql))==1{
-		$row = mysqli_fetch_array($query);
-
-		$adm = $row['Adm'];
-		$fname = $row['Fname'];
-		$sname = $row['Sname'];
-		$gender = $row['Gender'];
-		$class = $row['Class'];
-		$house = $row['House'];
-		$club = $row['Club'];
-//}
-}elseif(isset($_POST['update'])){
-	$id = $_POST['id'];
-	$adm = $_POST['adm'];
-	$fname = $_POST['fname'];
-	$sname = $_POST['sname'];
-	$gender = $_POST['gender'];
-	$class = $_POST['class'];
-	$house = $_POST['house'];
-	$club = $_POST['club'];
-
-
-	$sql="UPDATE tbl_students SET Adm='$adm', Fname='$fname', Sname='$sname', Gender='$gender', Class='$class', House='$house', Club='$club' WHERE ID=$id";
-
-	$query=mysqli_query($conn, $sql);
-
-	if($query){
-		header("location: index.php");
-	}
-
 }
+
 ?>
 
 <html>
