@@ -22,6 +22,26 @@ if(isset($_POST['submit'])){
 		header("location: create_stu.php");
 	}
 
+}elseif(isset($_GET['edit'])){
+	$id = $_GET['edit'];
+
+	$sql = "SELECT * FROM tbl_students WHERE ID=$id";
+	$query = mysqli_query($conn, $sql);
+
+	if(count($query)==1){
+		while($row=mysqli_fetch_array($query)){
+			$adm = $row['Adm'];
+			$fname = $row['Fname'];
+			$sname = $row['Sname'];
+			$class = $row['Class'];
+			$gender = $row['Gender'];
+			$house = $row['House'];
+			$club = $row['Club'];
+		}
+	}
+
+	
+
 }
 
 ?>
@@ -44,8 +64,6 @@ if(isset($_POST['submit'])){
     </div>
 
 	<form class="form-horizontal" method="POST">
-		<input type="hidden" name="id" value="<?php echo $id; ?>" />
-
 		<div class="form-group">
 			<label class="control-label">Adm_no:</label>
 			<input class="form-control" type="number" name="adm" value="<?php echo $adm;?>" required />
@@ -102,3 +120,28 @@ if(isset($_POST['submit'])){
 </main>
 </body>
 </html>
+
+<?php
+
+if(isset($_POST['update'])){
+	$adm = $_POST['adm'];
+	$fname = $_POST['fname'];
+	$sname = $_POST['sname'];
+	$class = $_POST['class'];
+	$gender = $_POST['gender'];
+	$house = $_POST['house'];
+	$club = $_POST['club'];
+
+	$sql = "UPDATE tbl_students SET Adm='$adm', Fname='$fname', Sname='$sname', Class='$class', Gender='$gender', House='$house', Club='$club' WHERE ID=$id";
+
+	$query = mysqli_query($conn, $sql);
+
+	if($query){
+		header("location: index.php");
+	}else{
+		header("location: create_stu.php");
+	}
+
+
+}
+?>
