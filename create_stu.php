@@ -139,6 +139,8 @@ if(isset($_POST['update'])){
 
 	$query = mysqli_query($conn, $sql);
 
+
+
 	if($query){
 		header("location: index.php");
 	}
